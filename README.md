@@ -6,12 +6,18 @@
 
 Мова сайту — українська. Дизайн: глибокий матовий зелений з золотом.
 
+> **Статус: прототип.** Публікація безкоштовна, на GitHub Pages:
+> <https://royalstudio-ua.github.io/>. Якщо салон викупить сайт, перед запуском
+> виконайте пункти з [`PRODUCTION-CHECKLIST.md`](PRODUCTION-CHECKLIST.md) —
+> 2FA, власний домен, заголовки безпеки, self-host шрифтів, згоди на відгуки.
+
 ## Структура
 
 ```
 royal-studio/
 ├── index.html                      ← весь сайт: розмітка, стилі, скрипт
 ├── README.md                       ← ця інструкція
+├── PRODUCTION-CHECKLIST.md         ← що зробити, якщо проєкт викуплять
 └── assets/
     ├── emblem.png                  ← емблема логотипа
     └── GreatVibes-Regular.ttf      ← self-hosted шрифт для першого екрана
