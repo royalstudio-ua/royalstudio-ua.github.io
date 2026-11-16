@@ -535,6 +535,7 @@
       overflow-x: auto;
       overscroll-behavior-x: contain;
       scroll-snap-type: x mandatory;
+      scroll-padding-inline: 4px;
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
@@ -544,6 +545,7 @@
     .carousel-track > * {
       flex: 0 0 calc((100% - (var(--visible) - 1) * var(--card-gap)) / var(--visible));
       scroll-snap-align: start;
+      scroll-snap-stop: always;
       min-width: 0;
     }
 
@@ -1629,7 +1631,7 @@
         });
       }
 
-      /* Каруселі: стрілки прокручують на ~85% ширини ряду */
+      /* Каруселі: один крок = одна картка (висота/ширина міряються з DOM) */
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       document.querySelectorAll('[data-carousel]').forEach(function (carousel) {
@@ -1637,17 +1639,43 @@
         var prev = carousel.querySelector('[data-prev]');
         var next = carousel.querySelector('[data-next]');
 
-        function step() {
-          return Math.max(1, Math.round(track.clientWidth * 0.85));
+        function cards() {
+          return Array.prototype.slice.call(track.children);
         }
 
-        prev.addEventListener('click', function () {
-          track.scrollBy({ left: -step(), behavior: reduceMotion ? 'auto' : 'smooth' });
-        });
+        function currentIndex() {
+          var list = cards();
+          if (!list.length) { return 0; }
 
-        next.addEventListener('click', function () {
-          track.scrollBy({ left: step(), behavior: reduceMotion ? 'auto' : 'smooth' });
-        });
+          var base = list[0].offsetLeft;
+          var best = 0;
+          var bestDist = Infinity;
+
+          list.forEach(function (el, i) {
+            var dist = Math.abs((el.offsetLeft - base) - track.scrollLeft);
+            if (dist < bestDist) { bestDist = dist; best = i; }
+          });
+
+          return best;
+        }
+
+        function goTo(index) {
+          var list = cards();
+          if (!list.length) { return; }
+
+          var i = Math.max(0, Math.min(list.length - 1, index));
+          var left = list[i].offsetLeft - list[0].offsetLeft;
+
+          track.scrollTo({ left: left, behavior: reduceMotion ? 'auto' : 'smooth' });
+        }
+
+        if (prev) {
+          prev.addEventListener('click', function () { goTo(currentIndex() - 1); });
+        }
+
+        if (next) {
+          next.addEventListener('click', function () { goTo(currentIndex() + 1); });
+        }
       });
     })();
   </script>
