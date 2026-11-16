@@ -32,7 +32,7 @@ Google Fonts. Great Vibes лежить локально в `assets/`, тому �
 | Кольори бренду | CSS-змінні в `:root` на початку `<style>` |
 | Фото | Плейсхолдери `[ФОТО САЛОНУ]`, `[ФОТО]`, `[МАНІКЮР]` тощо — TODO-коментарі поруч |
 | Карта | Блок `[КАРТА GOOGLE MAPS]` — у коментарі є приклад `<iframe>` |
-| Адреса сайту в Open Graph | `og:url` у `<head>` (замініть `USERNAME`) |
+| Адреса сайту в Open Graph | `og:url` і `og:image` у `<head>` (зараз `kxzzc.github.io/royal-studio`) |
 
 Усі місця для заповнення позначені коментарями `<!-- TODO: ... -->`.
 Контакти, ціни, майстри й кольори також перелічені в коментарі на початку `index.html`.
@@ -63,29 +63,11 @@ npx serve .
 
 ## Публікація на GitHub Pages
 
-**Статус: сайт ще не опубліковано.** На цій машині немає GitHub CLI (`gh`),
-тому репозиторій і GitHub Pages треба створити вручну.
+**Статус: сайт опубліковано.**
 
-1. Створіть публічний репозиторій `royal-studio` на github.com
-   (без README, без .gitignore — вони вже є локально).
-2. У папці `royal-studio` додайте remote і запуште гілку `main`:
-
-   ```powershell
-   git remote add origin https://github.com/USERNAME/royal-studio.git
-   git push -u origin main
-   ```
-
-3. У репозиторії відкрийте **Settings → Pages**.
-4. У полі **Source** виберіть **Deploy from a branch**.
-5. Виберіть гілку **main** і папку **/ (root)**, натисніть **Save**.
-6. Через 1–2 хвилини сайт буде доступний за адресою:
-
-   ```
-   https://USERNAME.github.io/royal-studio/
-   ```
-
-7. Замініть `USERNAME` у `og:url` в `index.html` на свій нік GitHub,
-   зробіть commit і push.
+- Сайт: <https://kxzzc.github.io/royal-studio/>
+- Репозиторій: <https://github.com/kxzzc/royal-studio>
+- Джерело публікації: гілка `main`, папка `/ (root)`
 
 Оновлення сайту після редагування:
 
@@ -96,6 +78,32 @@ git push
 ```
 
 GitHub Pages перебудує сторінку автоматично за 1–2 хвилини.
+Перевірити стан збірки: `gh api repos/kxzzc/royal-studio/pages/builds/latest --jq .status`.
+
+### Якщо треба повторити публікацію з нуля
+
+Потрібен GitHub CLI (`gh`) — на цій машині він уже встановлений
+у `C:\Program Files\GitHub CLI` і доданий у `PATH` користувача
+(у вже відкритих терміналах може знадобитися перезапуск).
+
+```powershell
+gh auth login                                   # один раз, вхід у браузері
+gh repo create royal-studio --public --source . --remote origin --push
+gh api -X POST repos/kxzzc/royal-studio/pages `
+  -f "source[branch]=main" -f "source[path]=/"
+```
+
+Або вручну: створити публічний репозиторій `royal-studio`, виконати
+`git remote add origin https://github.com/USERNAME/royal-studio.git` і
+`git push -u origin main`, далі **Settings → Pages → Deploy from a branch →
+`main` / `(root)` → Save**.
+
+### Власний домен (за бажанням)
+
+1. Додати файл `CNAME` з доменом (наприклад `royalstudio.com.ua`).
+2. У DNS налаштувати `A`-записи на IP GitHub Pages або `CNAME` на `kxzzc.github.io`.
+3. У **Settings → Pages → Custom domain** вписати домен і ввімкнути HTTPS.
+4. Оновити `og:url` та `og:image` на новий домен.
 
 ## Плейсхолдери, які треба заповнити
 
@@ -107,5 +115,4 @@ GitHub Pages перебудує сторінку автоматично за 1�
 - `[Ім’я клієнта]` × 6 — імена клієнтів
 - `[ГОДИНИ РОБОТИ]` — графік роботи салону
 - `[КАРТА GOOGLE MAPS]` — вставити `<iframe>` Google Maps
-- `USERNAME` в `og:url` — нік GitHub або власний домен
-- `og:image` — за бажанням, зображення 1200×630 для прев’ю в соцмережах
+- `og:image` — зараз емблема; за бажанням замініть на зображення 1200×630
