@@ -32,7 +32,7 @@ Google Fonts. Great Vibes лежить локально в `assets/`, тому �
 | Кольори бренду | CSS-змінні в `:root` на початку `<style>` |
 | Фото | Плейсхолдери `[ФОТО САЛОНУ]`, `[ФОТО]`, `[МАНІКЮР]` тощо — TODO-коментарі поруч |
 | Карта | Блок `[КАРТА GOOGLE MAPS]` — у коментарі є приклад `<iframe>` |
-| Адреса сайту в Open Graph | `og:url` і `og:image` у `<head>` (зараз `kxzzc.github.io/royal-studio`) |
+| Адреса сайту в Open Graph | `og:url` і `og:image` у `<head>` (зараз `royalstudio-ua.github.io`) |
 
 Усі місця для заповнення позначені коментарями `<!-- TODO: ... -->`.
 Контакти, ціни, майстри й кольори також перелічені в коментарі на початку `index.html`.
@@ -65,8 +65,8 @@ npx serve .
 
 **Статус: сайт опубліковано.**
 
-- Сайт: <https://kxzzc.github.io/royal-studio/>
-- Репозиторій: <https://github.com/kxzzc/royal-studio>
+- Сайт: <https://royalstudio-ua.github.io/>
+- Репозиторій: <https://github.com/royalstudio-ua/royalstudio-ua.github.io>
 - Джерело публікації: гілка `main`, папка `/ (root)`
 
 Оновлення сайту після редагування:
@@ -78,7 +78,7 @@ git push
 ```
 
 GitHub Pages перебудує сторінку автоматично за 1–2 хвилини.
-Перевірити стан збірки: `gh api repos/kxzzc/royal-studio/pages/builds/latest --jq .status`.
+Перевірити стан збірки: `gh api repos/royalstudio-ua/royalstudio-ua.github.io/pages/builds/latest --jq .status`.
 
 ### Якщо треба повторити публікацію з нуля
 
@@ -88,20 +88,24 @@ GitHub Pages перебудує сторінку автоматично за 1�
 
 ```powershell
 gh auth login                                   # один раз, вхід у браузері
-gh repo create royal-studio --public --source . --remote origin --push
-gh api -X POST repos/kxzzc/royal-studio/pages `
+gh repo create royalstudio-ua/royalstudio-ua.github.io --public --source . --remote origin --push
+gh api -X POST repos/royalstudio-ua/royalstudio-ua.github.io/pages `
   -f "source[branch]=main" -f "source[path]=/"
 ```
 
-Або вручну: створити публічний репозиторій `royal-studio`, виконати
-`git remote add origin https://github.com/USERNAME/royal-studio.git` і
+Або вручну: створити публічний репозиторій `royalstudio-ua.github.io`, виконати
+`git remote add origin https://github.com/royalstudio-ua/royalstudio-ua.github.io.git` і
 `git push -u origin main`, далі **Settings → Pages → Deploy from a branch →
 `main` / `(root)` → Save**.
+
+> Адреса `https://royalstudio-ua.github.io/` працює тому, що репозиторій
+> в організації називається так само, як сама організація (`<org>.github.io`).
+> Папка в адресі не потрібна.
 
 ### Власний домен (за бажанням)
 
 1. Додати файл `CNAME` з доменом (наприклад `royalstudio.com.ua`).
-2. У DNS налаштувати `A`-записи на IP GitHub Pages або `CNAME` на `kxzzc.github.io`.
+2. У DNS налаштувати `A`-записи на IP GitHub Pages або `CNAME` на `royalstudio-ua.github.io`.
 3. У **Settings → Pages → Custom domain** вписати домен і ввімкнути HTTPS.
 4. Оновити `og:url` та `og:image` на новий домен.
 
