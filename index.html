@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+<!--
+  РОЯЛ СТУДІЯ КРАСИ — статичний сайт (HTML + CSS + мінімум JS, без збірки)
+
+  ЩО ДЕ ЗМІНЮВАТИ:
+  1. Контакти — секція #contacts.
+  2. Ціни — секція #prices (статичні рядки).
+  3. Майстри — секція #masters (імена, фото, ролі).
+  4. Кольори — змінні :root у <style>.
+  5. Фото, графік, карта — TODO-коментарі та [ПЛЕЙСХОЛДЕРИ].
+  Публікація: GitHub Pages, гілка main, корінь (див. README.md).
+-->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Роял Студія Краси – салон краси в Тернополі</title>
+  <meta name="description" content="Салон краси «Роял Студія Краси» в Тернополі: манікюр, педикюр, вії, брови, стрижки, кератин, косметологія та масаж. Запис в Instagram або за телефоном 096 179 50 78.">
+  <meta name="theme-color" content="#0E2B20">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="uk_UA">
+  <meta property="og:site_name" content="Роял Студія Краси">
+  <meta property="og:title" content="Роял Студія Краси – салон краси в Тернополі">
+  <meta property="og:description" content="Манікюр, вії, брови, волосся, косметологія та масаж в одному місці. Запис напряму до майстра, ціни відкриті.">
+  <!-- TODO: після публікації замініть USERNAME на ваш нік GitHub (або на власний домен). -->
+  <meta property="og:url" content="https://USERNAME.github.io/royal-studio/">
+  <!-- TODO: для прев’ю в соцмережах додайте зображення 1200×630:
+       <meta property="og:image" content="https://USERNAME.github.io/royal-studio/assets/og-image.jpg"> -->
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='12'%20fill='%230E2B20'/%3E%3Ccircle%20cx='32'%20cy='32'%20r='23'%20fill='none'%20stroke='%23E3C998'%20stroke-width='1.5'/%3E%3Ctext%20x='32'%20y='45'%20font-family='Georgia,serif'%20font-size='32'%20fill='%23E3C998'%20text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== ТОКЕНИ БРЕНДУ ===== */
+    :root {
+      --ink: #0E2B20;
+      --cream: #F6F0E4;
+      --white: #FFFFFF;
+      --gold: #E3C998;
+      --gold-dark: #7A5C22;
+      --muted: #5B6B62;
+      --line: #DDD0B3;
+      --muted-on-dark: #D9E2DB;
+
+      --font-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+      --font-body: "Inter", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+      --font-script: "Great Vibes", "Cormorant Garamond", Georgia, serif;
+
+      --header-h: 66px;
+      --radius: 4px;
+    }
+
+    /* ===== ШРИФТИ ===== */
+    @font-face {
+      font-family: "Great Vibes";
+      src: url("assets/GreatVibes-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ===== БАЗА ===== */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, p, ul, ol, figure { margin: 0; }
+    ul, ol { padding: 0; list-style: none; }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    button { font: inherit; color: inherit; }
+    address { font-style: normal; }
+
+    :focus-visible {
+      outline: 3px solid var(--gold-dark);
+      outline-offset: 3px;
+    }
+
+    .dark-surface :focus-visible,
+    .site-header :focus-visible {
+      outline-color: var(--gold);
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 300;
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      background: var(--gold);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transform: translateY(-160%);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .container {
+      width: min(100% - 32px, 1200px);
+      margin-inline: auto;
+    }
+
+    .section {
+      padding: 56px 0;
+    }
+
+    .section--white { background: var(--white); }
+    .section--cream { background: var(--cream); }
+
+    main section[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+    }
+
+    .section-subtitle {
+      margin-top: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+
+    .section-head {
+      margin-bottom: 28px;
+    }
+
+    .dark-surface {
+      background-color: var(--ink);
+      background-image:
+        radial-gradient(90% 70% at 50% 0%, rgba(120, 190, 150, 0.09) 0%, rgba(120, 190, 150, 0) 70%),
+        radial-gradient(100% 80% at 50% 100%, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0) 70%);
+      background-repeat: no-repeat;
+      color: var(--cream);
+    }
+
+    /* ===== КНОПКИ ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 24px;
+      border: 1.5px solid transparent;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: 0.03em;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .btn--gold {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--ink);
+    }
+
+    .btn--gold:hover { background: #EBD6AF; border-color: #EBD6AF; }
+
+    .btn--outline {
+      background: transparent;
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .btn--outline:hover { background: rgba(227, 201, 152, 0.12); }
+
+    .btn--outline-ink {
+      background: transparent;
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+
+    .btn--outline-ink:hover { background: rgba(14, 43, 32, 0.06); }
+
+    /* ===== ШАПКА ===== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-h);
+      background-color: var(--ink);
+      background-image:
+        radial-gradient(80% 120% at 50% 0%, rgba(120, 190, 150, 0.09) 0%, rgba(120, 190, 150, 0) 75%),
+        radial-gradient(100% 130% at 50% 100%, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0) 75%);
+      background-repeat: no-repeat;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: var(--header-h);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 0 0 auto;
+      min-height: 44px;
+      text-decoration: none;
+    }
+
+    .brand-emblem {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .brand-text {
+      display: none;
+      padding-top: 2px;
+    }
+
+    .brand-word {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+
+    .brand-sub {
+      display: block;
+      margin-top: 4px;
+      font-size: 10px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.85;
+    }
+
+    .nav-scroll {
+      flex: 1 1 auto;
+      min-width: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .nav-scroll::-webkit-scrollbar { display: none; }
+
+    .nav-list {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: max-content;
+      margin-left: auto;
+    }
+
+    .nav-link,
+    .nav-trigger {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--muted-on-dark);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.2;
+      white-space: nowrap;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover,
+    .nav-trigger:hover { color: var(--gold); }
+
+    .nav-trigger .chev {
+      margin-left: 4px;
+      font-size: 10px;
+      line-height: 1;
+    }
+
+    .nav-cta {
+      flex: 0 0 auto;
+      min-height: 44px;
+      padding: 0 14px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Випадаюче меню «Послуги» */
+    .services {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: var(--header-h);
+    }
+
+    .services-menu {
+      position: fixed;
+      top: calc(var(--header-h) - 1px);
+      left: 12px;
+      right: 12px;
+      z-index: 140;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 20px;
+      max-height: calc(100vh - 84px);
+      padding: 20px;
+      overflow-y: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--cream);
+      color: var(--ink);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    }
+
+    .services.is-open .services-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .services-menu :focus-visible { outline-color: var(--gold-dark); }
+
+    .menu-title {
+      margin: 0 0 4px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .menu-title a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .menu-title a:hover { color: var(--gold-dark); }
+
+    .menu-links a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 14px;
+      line-height: 1.3;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .menu-links a:hover { color: var(--ink); }
+
+    /* ===== ПЕРШИЙ ЕКРАН ===== */
+    .hero {
+      padding: 48px 0 56px;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      margin-bottom: 18px;
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.5;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .hero-title {
+      margin: 0;
+      font-family: var(--font-script);
+      font-size: 52px;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--gold);
+      overflow-wrap: break-word;
+    }
+
+    .hero-lead {
+      max-width: 46ch;
+      margin-top: 18px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--muted-on-dark);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .hero-actions .btn {
+      min-height: 52px;
+    }
+
+    .hero-social {
+      margin-top: 24px;
+      font-size: 13px;
+      line-height: 1.5;
+      letter-spacing: 0.04em;
+      color: var(--muted-on-dark);
+    }
+
+    .hero-arch {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      max-width: 340px;
+      min-height: 340px;
+      margin-inline: auto;
+      border: 1.5px solid var(--gold);
+      border-radius: 220px 220px 8px 8px;
+      background: rgba(255, 255, 255, 0.025);
+      color: var(--muted-on-dark);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* ===== НАПРЯМКИ ===== */
+    .directions {
+      padding: 0 0 56px;
+      background: var(--cream);
+    }
+
+    .directions-inner {
+      padding-top: 32px;
+      border-top: 1px solid var(--line);
+    }
+
+    .directions-grid {
+      display: grid;
+      gap: 26px;
+    }
+
+    .direction-title {
+      margin-bottom: 6px;
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+
+    .direction-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    /* ===== КАРУСЕЛІ ===== */
+    .carousel {
+      position: relative;
+    }
+
+    .carousel-track {
+      --visible: 1;
+      --card-gap: 16px;
+      display: flex;
+      gap: var(--card-gap);
+      padding: 4px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .carousel-track::-webkit-scrollbar { display: none; }
+
+    .carousel-track > * {
+      flex: 0 0 calc((100% - (var(--visible) - 1) * var(--card-gap)) / var(--visible));
+      scroll-snap-align: start;
+      min-width: 0;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-size: 26px;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(14, 43, 32, 0.18);
+      transform: translateY(-50%);
+      transition: background-color 0.2s ease;
+    }
+
+    .carousel-btn:hover { background: var(--white); }
+
+    .carousel-btn--prev { left: -16px; }
+    .carousel-btn--next { right: -16px; }
+
+    /* ===== МАЙСТРИ ===== */
+    .masters-track { --visible: 1; }
+
+    .master-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--cream);
+      overflow: hidden;
+    }
+
+    .master-photo {
+      display: grid;
+      place-items: center;
+      aspect-ratio: 4 / 5;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      background: #EFE7D7;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .master-body {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      gap: 8px;
+      padding: 18px;
+    }
+
+    .master-role {
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+
+    .master-name {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--ink);
+      overflow-wrap: break-word;
+    }
+
+    .master-spec {
+      margin-bottom: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .master-card .btn {
+      width: 100%;
+      margin-top: auto;
+      min-height: 44px;
+    }
+
+    /* ===== РОБОТИ ===== */
+    .works-track { --visible: 1; }
+
+    .work-card {
+      display: grid;
+      place-items: center;
+      height: 320px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .works-more {
+      display: flex;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    .works-more .btn { min-height: 48px; }
+
+    /* ===== ПРАЙС ===== */
+    .price-list {
+      max-width: 860px;
+      margin-inline: auto;
+    }
+
+    .price-content {
+      max-width: 860px;
+      margin-inline: auto;
+    }
+
+    .price-group + .price-group { margin-top: 56px; }
+
+    .price-group-title {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1;
+      color: var(--ink);
+      scroll-margin-top: 84px;
+    }
+
+    .price-group-title::after {
+      content: "";
+      flex: 1 1 auto;
+      height: 2px;
+      background: var(--ink);
+    }
+
+    .price-sub {
+      margin-top: 28px;
+      scroll-margin-top: 84px;
+    }
+
+    .price-sub h4 {
+      margin: 0 0 6px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+
+    .price-rows { margin: 0; }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .price-name {
+      min-width: 0;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .price-value {
+      flex: 0 0 auto;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.5;
+      color: var(--gold-dark);
+      white-space: nowrap;
+    }
+
+    .price-note {
+      margin-top: 14px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    /* ===== ВІДГУКИ ===== */
+    .reviews-track { --visible: 1; }
+
+    .review-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 280px;
+      height: 100%;
+      padding: 26px 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+    }
+
+    .review-quote {
+      font-family: var(--font-display);
+      font-size: 72px;
+      font-weight: 600;
+      line-height: 0.7;
+      color: var(--gold-dark);
+    }
+
+    .review-text {
+      margin: 18px 0 0;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .review-name {
+      margin-top: auto;
+      padding-top: 22px;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    /* ===== ПИТАННЯ ===== */
+    .faq-list {
+      max-width: 900px;
+      border-top: 1px solid var(--line);
+    }
+
+    .faq-list details {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .faq-list summary {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-height: 64px;
+      padding: 16px 0;
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--ink);
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .faq-list summary::-webkit-details-marker { display: none; }
+
+    .faq-list summary::after {
+      content: "+";
+      flex: 0 0 auto;
+      margin-left: auto;
+      font-size: 26px;
+      font-weight: 400;
+      line-height: 1;
+      color: var(--gold-dark);
+    }
+
+    .faq-list details[open] summary::after { content: "−"; }
+
+    .faq-answer {
+      max-width: 70ch;
+      padding: 0 40px 22px 0;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    /* ===== ЯК ЗАПИСАТИСЬ ===== */
+    .steps {
+      display: grid;
+      gap: 30px;
+      margin-top: 36px;
+    }
+
+    .step-number {
+      font-family: var(--font-display);
+      font-size: 64px;
+      font-weight: 600;
+      line-height: 1;
+      color: var(--gold-dark);
+    }
+
+    .step-title {
+      margin-top: 10px;
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+
+    /* ===== КОНТАКТИ ===== */
+    .contacts {
+      padding: 64px 0 56px;
+    }
+
+    .contacts-grid {
+      display: grid;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .contacts .section-title { color: var(--cream); }
+
+    .contacts-info {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .contacts-address {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--muted-on-dark);
+    }
+
+    .contacts-address p + p { margin-top: 8px; }
+
+    .contacts-phone {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-family: var(--font-display);
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .contacts-phone:hover { text-decoration: underline; }
+
+    .contacts-hours {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--muted-on-dark);
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .contact-actions .btn {
+      width: 100%;
+      min-height: 48px;
+      padding: 0 18px;
+    }
+
+    .map-placeholder {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      min-height: 360px;
+      padding: 20px;
+      border: 1.5px solid var(--gold);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.025);
+      color: var(--muted-on-dark);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    /* ===== ПІДВАЛ ===== */
+    .site-footer {
+      padding: 22px 0 26px;
+      text-align: center;
+    }
+
+    .site-footer p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted-on-dark);
+    }
+
+    /* ===== АДАПТИВНІСТЬ ===== */
+    @media (min-width: 560px) {
+      .container { width: min(100% - 48px, 1200px); }
+      .brand-text { display: block; }
+      .brand-emblem { width: 50px; height: 50px; }
+      .header-inner { gap: 16px; }
+      .brand { gap: 12px; }
+      .directions-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+      .hero-title { font-size: 64px; }
+      .hero-arch { min-height: 400px; }
+    }
+
+    @media (min-width: 640px) {
+      .section { padding: 72px 0; }
+      .section-title { font-size: 48px; }
+      .price-group-title { font-size: 46px; }
+      .carousel-track { --visible: 2; --card-gap: 20px; }
+      .reviews-track { --visible: 2; }
+      .carousel-btn { width: 48px; height: 48px; }
+    }
+
+    @media (min-width: 900px) {
+      .section { padding: 88px 0; }
+      .section-title { font-size: 48px; }
+      .section-head { margin-bottom: 36px; }
+      .hero { padding: 72px 0 80px; }
+      .hero-grid {
+        grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.75fr);
+        gap: 48px;
+      }
+      .hero-title { font-size: 80px; }
+      .hero-arch { min-height: 440px; max-width: 360px; }
+      .directions { padding-bottom: 72px; }
+      .directions-inner { padding-top: 36px; }
+      .directions-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+      .price-group-title { font-size: 46px; }
+      .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; }
+      .step-number { font-size: 72px; }
+      .contacts { padding: 88px 0 72px; }
+      .contacts-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; }
+      .map-placeholder { min-height: 420px; }
+    }
+
+    @media (min-width: 1024px) {
+      .carousel-track { --visible: 4; --card-gap: 24px; }
+      .reviews-track { --visible: 3; }
+    }
+
+    @media (min-width: 1100px) {
+      .nav-list { gap: 18px; }
+      .nav-link,
+      .nav-trigger { font-size: 15px; }
+      .nav-cta { padding: 0 20px; font-size: 13px; }
+      .services-menu {
+        left: 0;
+        right: 0;
+        width: min(860px, calc(100vw - 48px));
+        margin-inline: auto;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 24px;
+        padding: 28px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Перейти до вмісту</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Роял Студія Краси – на початок сторінки">
+        <img class="brand-emblem" src="assets/emblem.png" alt="" width="50" height="50">
+        <span class="brand-text">
+          <span class="brand-word">ROYAL</span>
+          <span class="brand-sub">Beauty Studio</span>
+        </span>
+      </a>
+
+      <nav class="nav-scroll" aria-label="Головна навігація">
+        <div class="nav-list">
+          <a class="nav-link" href="#masters">Майстри</a>
+          <a class="nav-link" href="#works">Роботи</a>
+
+          <div class="services">
+            <button class="nav-trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="services-menu">
+              Послуги <span class="chev" aria-hidden="true">▾</span>
+            </button>
+
+            <div class="services-menu" id="services-menu">
+              <div class="menu-col">
+                <p class="menu-title"><a href="#g-nails">Нігті</a></p>
+                <ul class="menu-links">
+                  <li><a href="#manicure">Манікюр</a></li>
+                  <li><a href="#pedicure">Педикюр</a></li>
+                  <li><a href="#design">Дизайни</a></li>
+                </ul>
+              </div>
+
+              <div class="menu-col">
+                <p class="menu-title"><a href="#g-lashbrow">Вії та брови</a></p>
+                <ul class="menu-links">
+                  <li><a href="#lashes">Вії</a></li>
+                  <li><a href="#brows">Брови</a></li>
+                </ul>
+              </div>
+
+              <div class="menu-col">
+                <p class="menu-title"><a href="#g-hair">Волосся</a></p>
+                <ul class="menu-links">
+                  <li><a href="#women">Жіночі стрижки</a></li>
+                  <li><a href="#men">Чоловічі стрижки</a></li>
+                  <li><a href="#hairmod">Модифікація волосся</a></li>
+                </ul>
+              </div>
+
+              <div class="menu-col">
+                <p class="menu-title"><a href="#g-body">Тіло та обличчя</a></p>
+                <ul class="menu-links">
+                  <li><a href="#massage">Масаж</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-link" href="#reviews">Відгуки</a>
+          <a class="nav-link" href="#contacts">Контакти</a>
+          <a class="btn btn--gold nav-cta" href="https://www.instagram.com/studio_beauty_royal/" target="_blank" rel="noopener noreferrer">Записатись</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===== 1. ПЕРШИЙ ЕКРАН ===== -->
+    <section class="hero dark-surface" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="hero-eyebrow">Тернопіль · Манікюр · Вії · Косметолог · Волосся</p>
+          <h1 class="hero-title" id="hero-title">Краса, яка створює впевненість</h1>
+          <p class="hero-lead">Манікюр, вії, брови, волосся, косметологія та масаж в одному місці. Запис напряму до майстра, ціни відкриті.</p>
+
+          <div class="hero-actions">
+            <a class="btn btn--gold" href="https://www.instagram.com/studio_beauty_royal/" target="_blank" rel="noopener noreferrer">Записатись в Instagram</a>
+            <a class="btn btn--outline" href="tel:+380961795078">096 179 50 78</a>
+          </div>
+
+          <p class="hero-social">Нас читають 9 900+ людей в Instagram</p>
+        </div>
+
+        <!-- TODO: замініть плейсхолдер на фото салону:
+             <img src="assets/salon.jpg" alt="Салон «Роял Студія Краси» в Тернополі" style="width:100%;height:100%;object-fit:cover;border-radius:220px 220px 8px 8px"> -->
+        <div class="hero-arch">[ФОТО САЛОНУ]</div>
+      </div>
+    </section>
+
+    <!-- ===== 2. НАПРЯМКИ ===== -->
+    <section class="directions" aria-labelledby="directions-title">
+      <div class="container directions-inner">
+        <h2 class="visually-hidden" id="directions-title">Напрямки</h2>
+        <div class="directions-grid">
+          <div class="direction">
+            <h3 class="direction-title">Нігті</h3>
+            <p class="direction-text">Манікюр, педикюр, нарощування, дизайни</p>
+          </div>
+          <div class="direction">
+            <h3 class="direction-title">Вії та брови</h3>
+            <p class="direction-text">Лашмейкер, ламінування, корекція, фарбування</p>
+          </div>
+          <div class="direction">
+            <h3 class="direction-title">Волосся</h3>
+            <p class="direction-text">Стрижки, кератин, ботокс, відновлення</p>
+          </div>
+          <div class="direction">
+            <h3 class="direction-title">Тіло та обличчя</h3>
+            <p class="direction-text">Масаж, косметолог, депіляція</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. МАЙСТРИ ===== -->
+    <section class="section section--white" id="masters" aria-labelledby="masters-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" id="masters-title">Майстри</h2>
+        </div>
+
+        <!-- TODO: заповніть [Ім’я майстра], замініть [ФОТО] на <img src="assets/masters/..." alt="...">,
+             за потреби уточніть спеціалізацію. Посилання «Записатись» веде на Instagram салону. -->
+        <div class="carousel" data-carousel role="region" aria-roledescription="карусель" aria-label="Майстри">
+          <button class="carousel-btn carousel-btn--prev" type="button" aria-label="Попередні майстри" data-prev>
+            <span aria-hidden="true">‹</span>
+          </button>
+
+          <div class="carousel-track masters-track" data-track tabindex="0" role="group" aria-label="Список майстрів">
+            <article class="master-card">
+              <div class="master-photo" role="img" aria-label="Фото майстра: [Ім’я майстра]">[ФОТО]</div>
+              <div class="master-body">
+                <p class="master-role">Нігтьовий сервіс</p>
+                <h3 class="master-name">[Ім’я майстра]</h3>
+                <p class="master-spec">Манікюр, педикюр, нарощування та дизайн</p>
+                <a class="btn btn--outline-ink" href="https://www.instagram.com/studio_beauty_royal/" target="_blank" rel="noopener noreferrer" aria-label="Записатись: нігтьовий сервіс">Записатись</a>
+              </div>
+            </article>
+
+            <article class="master-card">
+              <div class="master-photo" role="img" aria-label="Фото майстра: [Ім’я майстра]">[ФОТО]</div>
+              <div class="master-body">
+                <p class="master-role">Лашмейкер</p>
+                <h3 class="master-name">[Ім’я майстра]</h3>
+                <p class="master-spec">Нарощування вій, ламінування, корекція</p>
+                <a class="btn btn--outline-ink" href="https://www.instagram.com/studio_beauty_royal/" target="_blank" rel="noopener noreferrer" aria-label="Записатись: лашмейкер">Записатись</a>
+              </div>
+            </article>
+
+            <article class="master-card">
+              <div class="master-photo" role="img" aria-label="Фото майстра: [Ім’я майстра]">[ФОТО]</div>
+              <div class="master-body">
+                <p class="master-role">Бровіст-ламімейкер</p>
+                <h3 class="master-name">[Ім’я майстра]</h3>
+                <p class="master-spec">Ламінування брів, корекція, фарбування</p>
+                <a class="btn btn--outline-ink" href="https://www.instagram.com/studio_beauty_royal/" target="_blank" rel="noopener noreferrer" aria-label="Записатись: бровіст-ламімейкер">Записатись</a>
+              </div>
+            </article>
+
+            <article class="master-card">
+              <div class="master-photo" role="img" aria-label="Фото майстра: [Ім’я майстра]">[ФОТО]</div>
+              <div class="master-body">
+                <p class="master-role">Перукар</p>
+                <h3 class="master-name">[Ім’я майстра]</h3>
+                <p class="master-spec">Жіночі та чоловічі стрижки</p>
+                <a class="btn btn--outline-ink" href="https://www.instagram.com/studio_beauty_royal/" target="_blank" rel="noopener noreferrer" aria-label="Записатись: перукар">Записатись</a>
+              </div>
+            </article>
+
+            <article class="master-card">
+              <div class="master-photo" role="img" aria-label="Фото майстра: [Ім’я майстра]">[ФОТО]</div>
+              <div class="master-body">
+                <p class="master-role">Модифікація волосся</p>
+                <h3 class="master-name">[Ім’я майстра]</h3>
+                <p class="master-spec">Кератин, ботокс, відновлення</p>
+                <a class="btn btn--outline-ink" href="https://www.instagram.com/studio_beauty_royal/" target="_blank" rel="noopener noreferrer" aria-label="Записатись: модифікація волосся">Записатись</a>
+              </div>
+            </article>
+
+            <article class="master-card">
+              <div class="master-photo" role="img" aria-label="Фото майстра: [Ім’я майстра]">[ФОТО]</div>
+              <div class="master-body">
+                <p class="master-role">Масажист</p>
+                <h3 class="master-name">[Ім’я майстра]</h3>
+                <p class="master-spec">Масаж тіла та обличчя</p>
+                <a class="btn btn--outline-ink" href="https://www.instagram.com/studio_beauty_royal/" target="_blank" rel="noopener noreferrer" aria-label="Записатись: масажист">Записатись</a>
+              </div>
+            </article>
+          </div>
+
+          <button class="carousel-btn carousel-btn--next" type="button" aria-label="Наступні майстри" data-next>
+            <span aria-hidden="true">›</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. РОБОТИ ===== -->
+    <section class="section section--cream" id="works" aria-labelledby="works-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" id="works-title">Роботи</h2>
+        </div>
+
+        <!-- TODO: замініть плейсхолдери [МАНІКЮР], [ВІЇ], [ВОЛОССЯ], [БРОВИ], [ПЕДИКЮР], [ДИЗАЙН НІГТІВ]
+             на <img src="assets/works/..." alt="..."> у картках .work-card. -->
+        <div class="carousel" data-carousel role="region" aria-roledescription="карусель" aria-label="Роботи">
+          <button class="carousel-btn carousel-btn--prev" type="button" aria-label="Попередні роботи" data-prev>
+            <span aria-hidden="true">‹</span>
+          </button>
+
+          <div class="carousel-track works-track" data-track tabindex="0" role="group" aria-label="Галерея робіт">
+            <div class="work-card">[МАНІКЮР]</div>
+            <div class="work-card">[ВІЇ]</div>
+            <div class="work-card">[ВОЛОССЯ]</div>
+            <div class="work-card">[БРОВИ]</div>
+            <div class="work-card">[ПЕДИКЮР]</div>
+            <div class="work-card">[ДИЗАЙН НІГТІВ]</div>
+          </div>
+
+          <button class="carousel-btn carousel-btn--next" type="button" aria-label="Наступні роботи" data-next>
+            <span aria-hidden="true">›</span>
+          </button>
+        </div>
+
+        <div class="works-more">
+          <a class="btn btn--outline-ink" href="https://www.instagram.com/studio_beauty_royal/" target="_blank" rel="noopener noreferrer">Більше робіт в Instagram</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 5. ПОСЛУГИ ===== -->
+    <section class="section section--white" id="prices" aria-labelledby="prices-title">
+      <div class="container">
+        <div class="price-content">
+        <div class="section-head">
+          <h2 class="section-title" id="prices-title">Послуги</h2>
+          <p class="section-subtitle">Прайс-лист</p>
+        </div>
+
+        <div class="price-list">
+          <section class="price-group" id="g-nails" aria-labelledby="g-nails-title">
+            <h3 class="price-group-title" id="g-nails-title">Нігті</h3>
+
+            <div class="price-sub" id="manicure">
+              <h4>Манікюр</h4>
+              <ul class="price-rows">
+                <li class="price-row"><span class="price-name">Жіночий манікюр</span><span class="price-value">450 грн</span></li>
+                <li class="price-row"><span class="price-name">Чоловічий манікюр</span><span class="price-value">500 грн</span></li>
+                <li class="price-row"><span class="price-name">Манікюр з покриттям гель-лаком або базою</span><span class="price-value">750 грн</span></li>
+                <li class="price-row"><span class="price-name">Манікюр з укріпленням та покриттям гель-лаком, 1–2 довжина</span><span class="price-value">800 грн</span></li>
+                <li class="price-row"><span class="price-name">Манікюр з укріпленням та покриттям гель-лаком, 3–4 довжина</span><span class="price-value">850–900 грн</span></li>
+                <li class="price-row"><span class="price-name">Манікюр з укріпленням та покриттям гель-лаком, 5–6 довжина</span><span class="price-value">950–1000 грн</span></li>
+                <li class="price-row"><span class="price-name">Нарощування нігтів, 1–3 довжина</span><span class="price-value">950–1300 грн</span></li>
+                <li class="price-row"><span class="price-name">Зняття покриття</span><span class="price-value">200–400 грн</span></li>
+                <li class="price-row"><span class="price-name">Покриття прозорим лаком</span><span class="price-value">100 грн</span></li>
+                <li class="price-row"><span class="price-name">Реставрація форми нігтя</span><span class="price-value">100–250 грн</span></li>
+                <li class="price-row"><span class="price-name">Ремонт нігтя: тріщини, кутикула (за 1 нігтик)</span><span class="price-value">20–100 грн</span></li>
+              </ul>
+            </div>
+
+            <div class="price-sub" id="pedicure">
+              <h4>Педикюр</h4>
+              <ul class="price-rows">
+                <li class="price-row"><span class="price-name">Жіночий педикюр</span><span class="price-value">550 грн</span></li>
+                <li class="price-row"><span class="price-name">Педикюр: пальчики та стопи</span><span class="price-value">600 грн</span></li>
+                <li class="price-row"><span class="price-name">Чистка стоп</span><span class="price-value">300–400 грн</span></li>
+                <li class="price-row"><span class="price-name">Чоловічий педикюр: пальчики та стопи</span><span class="price-value">750 грн</span></li>
+                <li class="price-row"><span class="price-name">Педикюр-комплекс: пальчики, стопи та покриття</span><span class="price-value">800 грн</span></li>
+                <li class="price-row"><span class="price-name">Подологічний педикюр</span><span class="price-value">700–900 грн</span></li>
+                <li class="price-row"><span class="price-name">Педикюр-комплекс зі SPA-доглядом</span><span class="price-value">900 грн</span></li>
+                <li class="price-row"><span class="price-name">Зняття покриття без нанесення нового</span><span class="price-value">150 грн</span></li>
+              </ul>
+            </div>
+
+            <div class="price-sub" id="design">
+              <h4>Дизайни</h4>
+              <ul class="price-rows">
+                <li class="price-row"><span class="price-name">Дизайн: френч або лунки</span><span class="price-value">150 грн</span></li>
+                <li class="price-row"><span class="price-name">Дизайн: оксамитовий манікюр</span><span class="price-value">150 грн</span></li>
+                <li class="price-row"><span class="price-name">Дизайн: втирка, стемпінг або «котяче око»</span><span class="price-value">100 грн</span></li>
+                <li class="price-row"><span class="price-name">Камінці, за 1 шт.</span><span class="price-value">5 грн</span></li>
+                <li class="price-row"><span class="price-name">Фігурки, за 1 шт.</span><span class="price-value">50 грн</span></li>
+                <li class="price-row"><span class="price-name">Дизайн: аерографія</span><span class="price-value">150–200 грн</span></li>
+                <li class="price-row"><span class="price-name">Наклейка, за 1 нігтик</span><span class="price-value">30 грн</span></li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="price-group" id="g-lashbrow" aria-labelledby="g-lashbrow-title">
+            <h3 class="price-group-title" id="g-lashbrow-title">Вії та брови</h3>
+
+            <div class="price-sub" id="lashes">
+              <h4>Вії</h4>
+              <ul class="price-rows">
+                <li class="price-row"><span class="price-name">Нарощування вій, класика</span><span class="price-value">670 грн</span></li>
+                <li class="price-row"><span class="price-name">Нарощування вій, 2D</span><span class="price-value">700 грн</span></li>
+                <li class="price-row"><span class="price-name">Нарощування вій, 3D</span><span class="price-value">750 грн</span></li>
+                <li class="price-row"><span class="price-name">Нарощування вій, 4D</span><span class="price-value">820 грн</span></li>
+                <li class="price-row"><span class="price-name">Нарощування вій, голівуд</span><span class="price-value">870 грн</span></li>
+                <li class="price-row"><span class="price-name">Нарощування нижніх вій</span><span class="price-value">250 грн</span></li>
+                <li class="price-row"><span class="price-name">Зняття вій</span><span class="price-value">150–200 грн</span></li>
+                <li class="price-row"><span class="price-name">Зняття вій, нарощених майстром з іншого салону</span><span class="price-value">200 грн</span></li>
+              </ul>
+              <p class="price-note">Мокрий ефект, промінчики, коричневі та кольорові вії, нестандартні вигини, екстра довжина: +100 грн.</p>
+            </div>
+
+            <div class="price-sub" id="brows">
+              <h4>Брови та ламінування</h4>
+              <ul class="price-rows">
+                <li class="price-row"><span class="price-name">Довготривала укладка брів без корекції та фарбування</span><span class="price-value">600 грн</span></li>
+                <li class="price-row"><span class="price-name">Довготривала укладка брів з корекцією або фарбуванням на вибір</span><span class="price-value">650 грн</span></li>
+                <li class="price-row"><span class="price-name">Довготривала укладка брів з корекцією та фарбуванням</span><span class="price-value">700 грн</span></li>
+                <li class="price-row"><span class="price-name">Ламінування вій без ботоксу</span><span class="price-value">600 грн</span></li>
+                <li class="price-row"><span class="price-name">Ламінування вій з ботоксом</span><span class="price-value">700 грн</span></li>
+                <li class="price-row"><span class="price-name">Комплекс: ламінування вій з ботоксом та ламінування брів</span><span class="price-value">1350 грн</span></li>
+                <li class="price-row"><span class="price-name">Корекція брів воском або пінцетом</span><span class="price-value">300 грн</span></li>
+                <li class="price-row"><span class="price-name">Фарбування брів фарбою або хною</span><span class="price-value">350 грн</span></li>
+                <li class="price-row"><span class="price-name">Корекція та фарбування брів</span><span class="price-value">450 грн</span></li>
+                <li class="price-row"><span class="price-name">Фарбування вій</span><span class="price-value">200 грн</span></li>
+                <li class="price-row"><span class="price-name">Депіляція над верхньою губою</span><span class="price-value">150 грн</span></li>
+              </ul>
+              <p class="price-note">Кожна додаткова зона депіляції +50 грн.</p>
+            </div>
+          </section>
+
+          <section class="price-group" id="g-hair" aria-labelledby="g-hair-title">
+            <h3 class="price-group-title" id="g-hair-title">Волосся</h3>
+
+            <div class="price-sub" id="women">
+              <h4>Жіночі стрижки</h4>
+              <ul class="price-rows">
+                <li class="price-row"><span class="price-name">Жіноча стрижка, коротке волосся</span><span class="price-value">350–400 грн</span></li>
+                <li class="price-row"><span class="price-name">Жіноча стрижка, середнє волосся</span><span class="price-value">450–500 грн</span></li>
+                <li class="price-row"><span class="price-name">Жіноча стрижка, довге волосся</span><span class="price-value">550–600 грн</span></li>
+                <li class="price-row"><span class="price-name">Стрижка гривки</span><span class="price-value">150 грн</span></li>
+                <li class="price-row"><span class="price-name">Стрижка кінчиків</span><span class="price-value">350–550 грн</span></li>
+                <li class="price-row"><span class="price-name">Полірування волосся</span><span class="price-value">200–400 грн</span></li>
+                <li class="price-row"><span class="price-name">Дитяча стрижка, до 7 років</span><span class="price-value">300 грн</span></li>
+                <li class="price-row"><span class="price-name">Миття волосся</span><span class="price-value">150–200 грн</span></li>
+              </ul>
+            </div>
+
+            <div class="price-sub" id="men">
+              <h4>Чоловічі стрижки</h4>
+              <ul class="price-rows">
+                <li class="price-row"><span class="price-name">Чоловіча стрижка машинкою та ножицями</span><span class="price-value">300 грн</span></li>
+                <li class="price-row"><span class="price-name">Чоловіча стрижка машинкою</span><span class="price-value">250 грн</span></li>
+                <li class="price-row"><span class="price-name">Дитяча стрижка</span><span class="price-value">250–300 грн</span></li>
+                <li class="price-row"><span class="price-name">Стрижка бороди</span><span class="price-value">150–200 грн</span></li>
+                <li class="price-row"><span class="price-name">Миття голови</span><span class="price-value">150 грн</span></li>
+              </ul>
+            </div>
+
+            <div class="price-sub" id="hairmod">
+              <h4>Модифікація волосся</h4>
+              <ul class="price-rows">
+                <li class="price-row"><span class="price-name">Кератинове вирівнювання</span><span class="price-value">2000–7000 грн</span></li>
+                <li class="price-row"><span class="price-name">Ботокс для волосся</span><span class="price-value">2000–7000 грн</span></li>
+                <li class="price-row"><span class="price-name">Холодне відновлення (холодний ботокс)</span><span class="price-value">1500–4000 грн</span></li>
+                <li class="price-row"><span class="price-name">Пілінг шкіри голови</span><span class="price-value">від 450 грн</span></li>
+                <li class="price-row"><span class="price-name">Полірування волосся</span><span class="price-value">від 500 грн</span></li>
+                <li class="price-row"><span class="price-name">Стрижка кінців</span><span class="price-value">від 350 грн</span></li>
+              </ul>
+              <p class="price-note">Вартість залежить від довжини та густини волосся. Доплата за густину від 400 грн.</p>
+            </div>
+          </section>
+
+          <section class="price-group" id="g-body" aria-labelledby="g-body-title">
+            <h3 class="price-group-title" id="g-body-title">Тіло та обличчя</h3>
+
+            <div class="price-sub" id="massage">
+              <h4>Масаж</h4>
+              <ul class="price-rows">
+                <li class="price-row"><span class="price-name">Профілактично-лікувальний масаж: спина та шия, 40 хв</span><span class="price-value">600 грн</span></li>
+                <li class="price-row"><span class="price-name">Профілактично-лікувальний масаж: все тіло, 60 хв</span><span class="price-value">800 грн</span></li>
+                <li class="price-row"><span class="price-name">Розслаблюючий масаж (релакс), 60 хв</span><span class="price-value">800 грн</span></li>
+                <li class="price-row"><span class="price-name">Спортивний масаж, 45 хв</span><span class="price-value">600 грн</span></li>
+                <li class="price-row"><span class="price-name">Спортивний масаж, 90 хв</span><span class="price-value">800 грн</span></li>
+                <li class="price-row"><span class="price-name">Антицелюлітний масаж: ноги, 30 хв</span><span class="price-value">600 грн</span></li>
+                <li class="price-row"><span class="price-name">Антицелюлітний масаж: живіт і боки, 30 хв</span><span class="price-value">600 грн</span></li>
+                <li class="price-row"><span class="price-name">Антицелюлітний масаж: ноги, живіт і сідниці, 60 хв</span><span class="price-value">900 грн</span></li>
+                <li class="price-row"><span class="price-name">Лімфодренажний масаж, 60 хв</span><span class="price-value">800 грн</span></li>
+                <li class="price-row"><span class="price-name">Масаж обличчя, 20 хв</span><span class="price-value">350 грн</span></li>
+                <li class="price-row"><span class="price-name">Масаж обличчя та шиї, 30 хв</span><span class="price-value">550 грн</span></li>
+                <li class="price-row"><span class="price-name">Масаж обличчя, шиї та декольте, 40 хв</span><span class="price-value">600 грн</span></li>
+              </ul>
+            </div>
+          </section>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6. ВІДГУКИ ===== -->
+    <section class="section section--cream" id="reviews" aria-labelledby="reviews-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" id="reviews-title">Відгуки</h2>
+        </div>
+
+        <!-- TODO: замініть [ВІДГУК КЛІЄНТА] та [Ім’я клієнта] на справжні відгуки (з дозволу клієнтів). -->
+        <div class="carousel" data-carousel role="region" aria-roledescription="карусель" aria-label="Відгуки клієнтів">
+          <button class="carousel-btn carousel-btn--prev" type="button" aria-label="Попередні відгуки" data-prev>
+            <span aria-hidden="true">‹</span>
+          </button>
+
+          <div class="carousel-track reviews-track" data-track tabindex="0" role="group" aria-label="Список відгуків">
+            <figure class="review-card">
+              <p class="review-quote" aria-hidden="true">“</p>
+              <blockquote class="review-text">[ВІДГУК КЛІЄНТА]</blockquote>
+              <figcaption class="review-name">[Ім’я клієнта]</figcaption>
+            </figure>
+            <figure class="review-card">
+              <p class="review-quote" aria-hidden="true">“</p>
+              <blockquote class="review-text">[ВІДГУК КЛІЄНТА]</blockquote>
+              <figcaption class="review-name">[Ім’я клієнта]</figcaption>
+            </figure>
+            <figure class="review-card">
+              <p class="review-quote" aria-hidden="true">“</p>
+              <blockquote class="review-text">[ВІДГУК КЛІЄНТА]</blockquote>
+              <figcaption class="review-name">[Ім’я клієнта]</figcaption>
+            </figure>
+            <figure class="review-card">
+              <p class="review-quote" aria-hidden="true">“</p>
+              <blockquote class="review-text">[ВІДГУК КЛІЄНТА]</blockquote>
+              <figcaption class="review-name">[Ім’я клієнта]</figcaption>
+            </figure>
+            <figure class="review-card">
+              <p class="review-quote" aria-hidden="true">“</p>
+              <blockquote class="review-text">[ВІДГУК КЛІЄНТА]</blockquote>
+              <figcaption class="review-name">[Ім’я клієнта]</figcaption>
+            </figure>
+            <figure class="review-card">
+              <p class="review-quote" aria-hidden="true">“</p>
+              <blockquote class="review-text">[ВІДГУК КЛІЄНТА]</blockquote>
+              <figcaption class="review-name">[Ім’я клієнта]</figcaption>
+            </figure>
+          </div>
+
+          <button class="carousel-btn carousel-btn--next" type="button" aria-label="Наступні відгуки" data-next>
+            <span aria-hidden="true">›</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 7. ПИТАННЯ ТА ВІДПОВІДІ ===== -->
+    <section class="section section--white" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" id="faq-title">Питання та відповіді</h2>
+        </div>
+
+        <div class="faq-list">
+          <details open>
+            <summary>Як записатись?</summary>
+            <div class="faq-answer">Напишіть у Direct в Instagram @studio_beauty_royal або зателефонуйте за номером 096 179 50 78. Домовимось про зручний час.</div>
+          </details>
+          <details>
+            <summary>Де знаходиться салон?</summary>
+            <div class="faq-answer">Тернопіль, вул. Чернівецька 53, 2 під’їзд.</div>
+          </details>
+          <details>
+            <summary>Чи можна зняти роботу іншого майстра?</summary>
+            <div class="faq-answer">Так. Зняття вій, нарощених майстром з іншого салону, коштує 200 грн, зняття вій 150–200 грн, а зняття покриття з нігтів 200–400 грн.</div>
+          </details>
+          <details>
+            <summary>Чи остаточні ціни на сайті?</summary>
+            <div class="faq-answer">Ціни орієнтовні, у багатьох послугах вказано діапазон. Вартість залежить від довжини, складності та густини волосся, тому остаточну суму майстер називає під час запису.</div>
+          </details>
+          <details>
+            <summary>Є у вас магазин?</summary>
+            <div class="faq-answer">Так, магазин салону в Instagram: @royal_shop_studio.</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 8. ЯК ЗАПИСАТИСЬ ===== -->
+    <section class="section section--cream" aria-labelledby="how-title">
+      <div class="container">
+        <h2 class="section-title" id="how-title">Як записатись</h2>
+
+        <ol class="steps">
+          <li class="step">
+            <p class="step-number" aria-hidden="true">01</p>
+            <h3 class="step-title">Оберіть послугу</h3>
+          </li>
+          <li class="step">
+            <p class="step-number" aria-hidden="true">02</p>
+            <h3 class="step-title">Напишіть або зателефонуйте</h3>
+          </li>
+          <li class="step">
+            <p class="step-number" aria-hidden="true">03</p>
+            <h3 class="step-title">Приходьте в салон</h3>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== 9. КОНТАКТИ ===== -->
+    <section class="contacts dark-surface" id="contacts" aria-labelledby="contacts-title">
+      <div class="container contacts-grid">
+        <div class="contacts-info">
+          <h2 class="section-title" id="contacts-title">Контакти</h2>
+
+          <address class="contacts-address">
+            <p>Тернопіль, вул. Чернівецька 53, 2 під’їзд</p>
+            <p><a class="contacts-phone" href="tel:+380961795078">096 179 50 78</a></p>
+            <!-- TODO: вкажіть реальний графік роботи салону. -->
+            <p class="contacts-hours">[ГОДИНИ РОБОТИ]</p>
+          </address>
+
+          <div class="contact-actions">
+            <a class="btn btn--gold" href="https://www.instagram.com/studio_beauty_royal/" target="_blank" rel="noopener noreferrer">@studio_beauty_royal</a>
+            <a class="btn btn--gold" href="https://www.instagram.com/royal_shop_studio/" target="_blank" rel="noopener noreferrer">Магазин @royal_shop_studio</a>
+            <a class="btn btn--gold" href="tel:+380961795078">Зателефонувати</a>
+          </div>
+        </div>
+
+        <!-- TODO: замініть цей блок на Google Maps iframe. Приклад:
+             <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="420"
+                     style="border:0" allowfullscreen loading="lazy"
+                     referrerpolicy="no-referrer-when-downgrade"
+                     title="Мапа: Тернопіль, вул. Чернівецька 53"></iframe> -->
+        <div class="map-placeholder" role="img" aria-label="Карта Google Maps: Тернопіль, вул. Чернівецька 53">[КАРТА GOOGLE MAPS]</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== 10. ПІДВАЛ ===== -->
+  <footer class="site-footer dark-surface">
+    <div class="container">
+      <p>© Роял Студія Краси, Тернопіль</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      /* Меню «Послуги»: наведення, фокус, тап */
+      var services = document.querySelector('.services');
+      if (services) {
+        var trigger = services.querySelector('.nav-trigger');
+        var menu = document.getElementById('services-menu');
+        var pinned = false;
+        var suppressFocusOpen = false;
+
+        function openMenu() {
+          services.classList.add('is-open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeMenu() {
+          pinned = false;
+          services.classList.remove('is-open');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+
+        trigger.addEventListener('click', function () {
+          if (services.classList.contains('is-open') && pinned) {
+            closeMenu();
+          } else {
+            pinned = true;
+            openMenu();
+          }
+        });
+
+        services.addEventListener('mouseenter', function () {
+          if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+            openMenu();
+          }
+        });
+
+        services.addEventListener('mouseleave', function () {
+          if (!pinned) closeMenu();
+        });
+
+        services.addEventListener('focusin', function () {
+          if (!suppressFocusOpen) openMenu();
+        });
+
+        services.addEventListener('focusout', function (event) {
+          if (!services.contains(event.relatedTarget) && !pinned) closeMenu();
+        });
+
+        document.addEventListener('pointerdown', function (event) {
+          if (!services.contains(event.target)) closeMenu();
+        });
+
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape' && services.classList.contains('is-open')) {
+            suppressFocusOpen = true;
+            trigger.focus();
+            closeMenu();
+            suppressFocusOpen = false;
+          }
+        });
+
+        menu.addEventListener('click', function (event) {
+          if (event.target.closest('a')) closeMenu();
+        });
+      }
+
+      /* Каруселі: стрілки прокручують на ~85% ширини ряду */
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      document.querySelectorAll('[data-carousel]').forEach(function (carousel) {
+        var track = carousel.querySelector('[data-track]');
+        var prev = carousel.querySelector('[data-prev]');
+        var next = carousel.querySelector('[data-next]');
+
+        function step() {
+          return Math.max(1, Math.round(track.clientWidth * 0.85));
+        }
+
+        prev.addEventListener('click', function () {
+          track.scrollBy({ left: -step(), behavior: reduceMotion ? 'auto' : 'smooth' });
+        });
+
+        next.addEventListener('click', function () {
+          track.scrollBy({ left: step(), behavior: reduceMotion ? 'auto' : 'smooth' });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
