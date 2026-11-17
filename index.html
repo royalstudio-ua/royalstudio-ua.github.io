@@ -283,8 +283,32 @@
       opacity: 0.85;
     }
 
+    /* Обгортка навігації: підказка, що ряд посилань можна прокрутити */
+    .nav-wrap {
+      position: relative;
+      display: flex;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .nav-wrap::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 26px;
+      background: linear-gradient(to right, rgba(14, 43, 32, 0) 0%, var(--ink) 78%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-wrap.is-scrollable::after { opacity: 1; }
+
     .nav-scroll {
       flex: 1 1 auto;
+      width: 100%;
       min-width: 0;
       overflow-x: auto;
       overflow-y: hidden;
@@ -974,6 +998,16 @@
       .carousel-btn { width: 48px; height: 48px; }
     }
 
+    /* Планшет: компактніша шапка, щоб у ряду вміщалося більше посилань */
+    @media (min-width: 560px) and (max-width: 899px) {
+      .brand-word { font-size: 22px; letter-spacing: 0.1em; }
+      .brand-sub { font-size: 9px; letter-spacing: 0.24em; }
+      .nav-list { gap: 10px; }
+      .nav-link,
+      .nav-trigger { font-size: 13px; }
+      .nav-cta { padding: 0 12px; font-size: 12px; }
+    }
+
     @media (min-width: 900px) {
       .section { padding: 88px 0; }
       .section-title { font-size: 48px; }
@@ -997,8 +1031,33 @@
     }
 
     @media (min-width: 1024px) {
-      .carousel-track { --visible: 4; --card-gap: 24px; }
+      .carousel-track { --visible: 3; --card-gap: 24px; }
       .reviews-track { --visible: 3; }
+    }
+
+    /* 4 картки в ряд — лише коли їм вистачає місця (від 1200px) */
+    @media (min-width: 1200px) {
+      .carousel-track { --visible: 4; }
+    }
+
+    /* Широкі екрани: більше простору, але текст не розтягується */
+    @media (min-width: 1600px) {
+      .container { width: min(100% - 96px, 1320px); }
+      .hero-arch { max-width: 400px; }
+    }
+
+    /* Телефон у ландшафті: арка не має з'їдати пів екрана */
+    @media (max-height: 540px) and (min-width: 640px) {
+      .hero { padding: 24px 0 32px; }
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(180px, 0.5fr);
+        gap: 32px;
+      }
+      .hero-eyebrow { margin-bottom: 10px; }
+      .hero-title { font-size: clamp(40px, 6.5vw, 64px); }
+      .hero-lead { margin-top: 12px; }
+      .hero-actions { margin-top: 18px; }
+      .hero-arch { min-height: 200px; max-width: 240px; }
     }
 
     @media (min-width: 1100px) {
@@ -1039,57 +1098,60 @@
         </span>
       </a>
 
-      <nav class="nav-scroll" aria-label="Головна навігація">
-        <div class="nav-list">
-          <a class="nav-link" href="#masters">Майстри</a>
-          <a class="nav-link" href="#works">Роботи</a>
+      <div class="nav-wrap">
+        <nav class="nav-scroll" aria-label="Головна навігація">
+          <div class="nav-list">
+            <a class="nav-link" href="#masters">Майстри</a>
+            <a class="nav-link" href="#works">Роботи</a>
 
-          <div class="services">
-            <button class="nav-trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="services-menu">
-              Послуги <span class="chev" aria-hidden="true">▾</span>
-            </button>
+            <div class="services">
+              <button class="nav-trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="services-menu">
+                Послуги <span class="chev" aria-hidden="true">▾</span>
+              </button>
 
-            <div class="services-menu" id="services-menu">
-              <div class="menu-col">
-                <p class="menu-title"><a href="#g-nails">Нігті</a></p>
-                <ul class="menu-links">
-                  <li><a href="#manicure">Манікюр</a></li>
-                  <li><a href="#pedicure">Педикюр</a></li>
-                  <li><a href="#design">Дизайни</a></li>
-                </ul>
-              </div>
+              <div class="services-menu" id="services-menu">
+                <div class="menu-col">
+                  <p class="menu-title"><a href="#g-nails">Нігті</a></p>
+                  <ul class="menu-links">
+                    <li><a href="#manicure">Манікюр</a></li>
+                    <li><a href="#pedicure">Педикюр</a></li>
+                    <li><a href="#design">Дизайни</a></li>
+                  </ul>
+                </div>
 
-              <div class="menu-col">
-                <p class="menu-title"><a href="#g-lashbrow">Вії та брови</a></p>
-                <ul class="menu-links">
-                  <li><a href="#lashes">Вії</a></li>
-                  <li><a href="#brows">Брови</a></li>
-                </ul>
-              </div>
+                <div class="menu-col">
+                  <p class="menu-title"><a href="#g-lashbrow">Вії та брови</a></p>
+                  <ul class="menu-links">
+                    <li><a href="#lashes">Вії</a></li>
+                    <li><a href="#brows">Брови</a></li>
+                  </ul>
+                </div>
 
-              <div class="menu-col">
-                <p class="menu-title"><a href="#g-hair">Волосся</a></p>
-                <ul class="menu-links">
-                  <li><a href="#women">Жіночі стрижки</a></li>
-                  <li><a href="#men">Чоловічі стрижки</a></li>
-                  <li><a href="#hairmod">Модифікація волосся</a></li>
-                </ul>
-              </div>
+                <div class="menu-col">
+                  <p class="menu-title"><a href="#g-hair">Волосся</a></p>
+                  <ul class="menu-links">
+                    <li><a href="#women">Жіночі стрижки</a></li>
+                    <li><a href="#men">Чоловічі стрижки</a></li>
+                    <li><a href="#hairmod">Модифікація волосся</a></li>
+                  </ul>
+                </div>
 
-              <div class="menu-col">
-                <p class="menu-title"><a href="#g-body">Тіло та обличчя</a></p>
-                <ul class="menu-links">
-                  <li><a href="#massage">Масаж</a></li>
-                </ul>
+                <div class="menu-col">
+                  <p class="menu-title"><a href="#g-body">Тіло та обличчя</a></p>
+                  <ul class="menu-links">
+                    <li><a href="#massage">Масаж</a></li>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
 
-          <a class="nav-link" href="#reviews">Відгуки</a>
-          <a class="nav-link" href="#contacts">Контакти</a>
-          <a class="btn btn--gold nav-cta" href="https://www.instagram.com/studio_beauty_royal/" target="_blank" rel="noopener noreferrer">Записатись</a>
-        </div>
-      </nav>
+            <a class="nav-link" href="#reviews">Відгуки</a>
+            <a class="nav-link" href="#contacts">Контакти</a>
+          </div>
+        </nav>
+      </div>
+
+      <a class="btn btn--gold nav-cta" href="https://www.instagram.com/studio_beauty_royal/" target="_blank" rel="noopener noreferrer">Записатись</a>
     </div>
   </header>
 
@@ -1629,6 +1691,26 @@
         menu.addEventListener('click', function (event) {
           if (event.target.closest('a')) closeMenu();
         });
+      }
+
+      /* Навігація: показуємо затемнення краю, лише якщо посилання не вміщаються */
+      var navWrap = document.querySelector('.nav-wrap');
+      var navScroll = navWrap ? navWrap.querySelector('.nav-scroll') : null;
+
+      if (navWrap && navScroll) {
+        var syncNavFade = function () {
+          var hidden = navScroll.scrollWidth - navScroll.clientWidth;
+          var atEnd = navScroll.scrollLeft >= hidden - 1;
+          navWrap.classList.toggle('is-scrollable', hidden > 1 && !atEnd);
+        };
+
+        navScroll.addEventListener('scroll', syncNavFade, { passive: true });
+        window.addEventListener('resize', syncNavFade);
+        window.addEventListener('load', syncNavFade);
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(syncNavFade);
+        }
+        syncNavFade();
       }
 
       /* Каруселі: один крок = одна картка (висота/ширина міряються з DOM) */
