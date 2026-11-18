@@ -695,14 +695,13 @@
     .works-more .btn { min-height: 48px; }
 
     /* ===== ПРАЙС ===== */
+    /* Прайс вирівняний по лівому краю контейнера, як і заголовки інших секцій */
     .price-list {
-      max-width: 860px;
-      margin-inline: auto;
+      max-width: 100%;
     }
 
     .price-content {
-      max-width: 860px;
-      margin-inline: auto;
+      max-width: 900px;
     }
 
     .price-group + .price-group { margin-top: 56px; }
@@ -1014,7 +1013,7 @@
       .section-head { margin-bottom: 36px; }
       .hero { padding: 72px 0 80px; }
       .hero-grid {
-        grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.75fr);
+        grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.7fr);
         gap: 48px;
       }
       .hero-title { font-size: 80px; }
@@ -1047,7 +1046,7 @@
     }
 
     /* Телефон у ландшафті: арка не має з'їдати пів екрана */
-    @media (max-height: 540px) and (min-width: 640px) {
+    @media (max-height: 540px) and (min-width: 480px) {
       .hero { padding: 24px 0 32px; }
       .hero-grid {
         grid-template-columns: minmax(0, 1fr) minmax(180px, 0.5fr);
